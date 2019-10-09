@@ -39,3 +39,5 @@
     - 注意：
       1. 当Etag与Last-Modified同时被使用时，服务器会先对比Etag的值，再对比Last-Modified的值，根据不同情况进行处理
  
+ 参考文章：
+ 1 https://www.zhoulujun.cn/html/theory/network/2018_0306_8078.html
