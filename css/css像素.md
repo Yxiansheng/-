@@ -5,3 +5,4 @@
 为了解决这个问题，我们可以通过在网页中加入```<meta name="viewport" content="width=device-width,initial-scale=1.0>```,使网页viewport设置为屏幕的宽度。（width=device-width和initial-scale都可以让部分浏览器设为最佳viewport，为了兼容性，最好两个都加）
 
 ### 移动端1px像素问题
+移动端为了更好的展示效果，使用了所谓的一倍屏、二倍屏(Retina)、三倍屏等，它们指的是设备以多少物理像素来显示一个CSS像素，也就是说，多倍屏以更多更精细的物理像素点来显示一个CSS像素点，在普通屏幕下1个CSS像素对应1个物理像素，而在Retina屏幕下，1个CSS像素对应的却是4个物理像素。这也就造成了在移动端中，1px所表示的物理像素可能达到2、3像素，这也与设计稿中的1px形成了冲突。
