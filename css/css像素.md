@@ -1,4 +1,6 @@
 ### 像素
 像素作为通常我们CSS中经常用到的单位，它是一种逻辑单位，这也决定在不同分辨率的设备上，其表现出的物理像素是不一样的，主要跟其viewport(布局窗口)有关，通常移动端浏览器都会将默认viewport宽度设置为980或者1024，这样一旦有pc端网页展示在该移动端浏览器时，浏览器将其原网页内容进行等比例缩放，缩放比例为宽（实际）=宽（CSS）/ 宽（viewport默认）* 宽（宽口）
+
 ![pc网页移动端展示缩放比例图][https://github.com/Yxiansheng/-/blob/master/%E6%96%87%E6%A1%A3%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/Z%7DE)O(2%5D%40BH8%5BCYNPZU%25Z6D.png]
+
 ![][http://b-ssl.duitang.com/uploads/blog/201312/04/20131204184148_hhXUT.jpeg]
