@@ -1,5 +1,7 @@
 ### 像素
 像素作为通常我们CSS中经常用到的单位，它是一种逻辑单位，这也决定在不同分辨率的设备上，其表现出的物理像素是不一样的，主要跟其viewport(布局窗口)有关，通常移动端浏览器都会将默认viewport宽度设置为980或者1024，这样一旦有pc端网页展示在该移动端浏览器时，浏览器将其原网页内容进行等比例缩放，缩放比例为宽（实际）=宽（CSS）/ 宽（viewport默认）* 宽（宽口）  
 ![pc网页移动端展示缩放比例图](https://github.com/Yxiansheng/-/blob/master/%E6%96%87%E6%A1%A3%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/img1.png?raw=true)  
-同时网页字体大小也随着缩放，造成pc端网页在移动端展示字体太小无法看清
+同时网页字体大小也随着缩放，造成pc端网页在移动端展示字体太小无法看清  
+为了解决这个问题，我们可以通过在网页中加入```<meta name="viewport" content="width=device-width,initial-scale=1.0>```,使网页viewport设置为屏幕的宽度。（width=device-width和initial-scale都可以让部分浏览器设为最佳viewport，为了兼容性，最好两个都加）
 
+### 移动端1px像素问题
