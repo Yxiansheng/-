@@ -45,3 +45,25 @@ add(value): 在该 WeakSet 对象中添加一个新元素 value.
 delete(value): 从该 WeakSet 对象中删除 value 这个元素, 之后 WeakSet.prototype.has(value) 方法便会返回 false
 has(value): 返回一个布尔值,  表示给定的值 value 是否存在于这个 WeakSet 中.
 ```
+
+****
+
+### Map(字典)
+#### 用于保存键值对，并且能够记住键的原始插入顺序。任何值(对象或者原始值) 都可以作为一个键或一个值
+- 构造函数：new Map([iterable])
+```
+iterable
+Iterable 可以是一个数组或者其他 iterable 对象，其元素为键值对(两个元素的数组，例如: [[ 1, 'one' ],[ 2, 'two' ]])。 每个键值对都会添加到新的 Map。null 会被当做 undefined。
+```
+- 常用属性及方法：
+```
+属性：
+size: 返回集合的长度
+方法：
+1. set(key, value)
+在Map对象尾部添加一个元素同时返回该Map对象。即我们可以使用链式方式来调用：newMap.set(key1, value1).set(key2, value2);
+2. get(key)
+返回键对应的值，如果不存在，则返回undefined。
+```
+- Map键的比较
+map中判断两个键是否相同，是通过sameValueZero算法(即全等===)来判断，除NaN外，NaN默认为不自等，在这里是自等的。
