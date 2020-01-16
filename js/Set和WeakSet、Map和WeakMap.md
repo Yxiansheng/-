@@ -67,5 +67,27 @@ size: 返回集合的长度
 2. get(key)
 返回键对应的值，如果不存在，则返回undefined。
 ```
-- Map键的比较
+- Map键的比较： 
 map中判断两个键是否相同，是通过sameValueZero算法(即全等===)来判断，除NaN外，NaN默认为不自等，在这里是自等的。
+
+***
+
+### WeakMap
+#### WeakMap 对象是一组键/值对的集合，其中的键是弱引用的。其键必须是对象，而值可以是任意
+- 构造函数：new WeakMap([iterable])
+```
+iterable
+Iterable 是一个数组（二元数组）或者其他可迭代的且其元素是键值对的对象。每个键值对会被加到新的 WeakMap 里。null 会被当做 undefined。
+```
+- 常用属性及方法：
+```
+方法：
+1. set(key, value)
+在WeakMap中设置一组key关联对象，返回这个 WeakMap对象。
+2. delete(key)
+返回键对应的值，如果不存在，则返回undefined。
+3. get(key)
+返回key关联对象, 或者 undefined(没有key关联对象时)。
+4. has(key)
+根据是否有key关联对象返回一个Boolean值
+```
