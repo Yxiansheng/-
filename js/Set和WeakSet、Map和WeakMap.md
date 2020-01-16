@@ -53,7 +53,9 @@ has(value): 返回一个布尔值,  表示给定的值 value 是否存在于这�
 - 构造函数：new Map([iterable])
 ```
 iterable
-Iterable 可以是一个数组或者其他 iterable 对象，其元素为键值对(两个元素的数组，例如: [[ 1, 'one' ],[ 2, 'two' ]])。 每个键值对都会添加到新的 Map。null 会被当做 undefined。
+Iterable 可以是一个数组或者其他 iterable 对象，其元素为键值对(两个元素的数组，例如: [[ 1, 'one' ],[ 2, 'two' ]])。
+每个键值对都会添加到新的 Map。
+null 会被当做 undefined。
 ```
 - 常用属性及方法：
 ```
