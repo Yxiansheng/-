@@ -40,8 +40,8 @@ var b = (function () {
 // b.js
 var b = (function(a){
 var bStr = a.aStr + ' bb';
-  
- return {
+
+return {
 bStr: bStr
 };
 })(a);
@@ -148,13 +148,13 @@ console.log(a.aNum, b.bStr);
 })();
 看起来 require 和 module 好像是全局对象，其实只是闭包中的入参，并不是真正的全局对象。之前专门整理探究过 Node 中的 Module 源码分析，也可以看看阮一峰老师的 require()源码解读，或者廖雪峰老师的 CommonJS 规范。
 
-5. AMD 和 RequireJS
+5. AMD
    Commonjs 的诞生给 js 模块化发展有了重要的启发，Commonjs 非常受欢迎，但是局限性很明显：Commonjs 基于 Node 原生 api 在服务端可以实现模块同步加载，但是仅仅局限于服务端，客户端如果同步加载依赖的话时间消耗非常大，所以需要一个在客户端上基于 Commonjs 但是对于加载模块做改进的方案，于是 AMD 规范诞生了。
 
 AMD 是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到所有依赖加载完成之后（前置依赖），这个回调函数才会运行。
 
 AMD 规范
-AMD 与 Commonjs 一样都是 js 模块化规范，是一套抽象的约束，与 2009 年诞生。文档这里。该约束规定采用 require 语句加载模块，但是不同于 CommonJS，它要求两个参数：
+AMD 与 Commonjs 一样都是 js 模块化规范，是一套抽象的约束，与 2009 年诞生。文档这里。该约束规定采用 require 语句加载模块，但是不同于 CommonJS，它要求两个参数：该方案的代表实现者是 RequireJS，通过 define 方法定义模块，通过 require 方法加载模块。
 
 require([module], callback);
 第一个参数[module]，是一个数组，里面的成员就是要加载的模块；第二个参数 callback，则是加载成功之后的回调函数。如果将前面的代码改写成 AMD 形式，就是下面这样：
@@ -168,9 +168,6 @@ require(['math'], function (math) {
 
 define(id?, dependencies?, factory);
 define 方法与 require 类似，id 是定义模块的名字，仍然会在所有依赖加载完毕之后执行 factory。
-
-RequireJs
-RequireJs 是 js 模块化的工具框架，是 AMD 规范的具体实现。但是有意思的是，RequireJs 诞生之后，推广过程中产生的 AMD 规范。文档这里。
 
 RequireJs 有两个最鲜明的特点：
 
