@@ -93,5 +93,5 @@ Number | 数字值 | 返回数值的字符串表示。还可返回以指定进�
 String | 字符串值 | 返回 String 对象的值 |
 Boolean | 布尔值 | "true"/"false" |
 Array | 数组本身 | 将 Array 的每个元素转换为字符串，并将它们依次连接起来，两个元素之间用英文逗号作为分隔符进行拼接
-Date | 存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC | 返回日期的文本表示。
+Date | 存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC | 返回日期的文本表示("Wed Oct 09 2019 08:00:00 GMT+0800 (中国标准时间)")。
 Function | 函数本身 | 返回如下格式的字符串，其中 functionname 是一个函数的名称，此函数的 toString 方法被调用： "function functionname() { [native code] }"
