@@ -27,6 +27,6 @@ BFC(Block Format Context): 块级格式化上下文
 
 - 浮动元素，float 除 none 以外的值；
 - 绝对定位元素，position（absolute，fixed）；
-- display 不为 block;
+- display 为 inline-block、table、table-cell、table-caption、flex 中其中的一个;
 - overflow 不为 visible；
 - body 根元素
