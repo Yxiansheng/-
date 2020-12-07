@@ -1,4 +1,4 @@
-# js 的模块化随着前端技术的发展一共有以下几种方案
+# js 模块化几种方案
 
 ## 参考
 
@@ -118,4 +118,35 @@ AMD 方案的代表实现者是 RequireJS，通过 define 方法定义模块，�
 
 ## 6. ES6 中的模块化
 
-之前的各种方法和框架，都出自于各个大公司或者社区，都是民间出台的结局方法。到了 2015 年，ES6 规范中，终于将模块化纳入 JavaScript 标准，从此 js 模块化被官方扶正，也是未来 js 的标准。
+ES6模块化的关键字有import及export
+
+### import
+
+#### 语法
+1. import defaultExport from "module-name";
+2. import * as name from "module-name";
+3. import { export } from "module-name";
+4. import defaultExport, * as name from "module-name";
+5. import { export1 , export2 as alias2 , [...] } from "module-name";
+6. var promise = import("module-name");  
+```
+1到5的用法都是静态的引入，而6为动态引用，其会返回一个promise,在vue中使用这种方法局部引入某个组件时，应注意，此时父组件不用等到该目标子组件加载并渲染完毕再进行渲染，暨父组件mounted会先于子组件mounted执行。
+```
+
+#### 特点
+1.  静态的import 语句用于导入由另一个模块导出的绑定。
+2.  无论是否声明了 strict mode ，导入的模块都运行在严格模式下。
+3.  在浏览器中，import 语句只能在声明了 type="module" 的 script 的标签中使用。但有一个特殊用法import()，它则不需要依赖 type="module" 的script标签。
+
+### export
+在创建JavaScript模块时，export 语句用于从模块中导出实时绑定的函数、对象或原始值，以便其他程序可以通过 import 语句使用它们。
+
+#### 用法
+1. export let name1, name2, …, nameN;
+2. export { name1, name2, …, nameN };
+3. export { variable1 as name1, variable2 as name2, …, nameN };
+4. export default expression;
+5. export { default } from …;
+
+#### 特点
+1. 被导出的绑定值依然可以在本地进行修改。在使用import进行导入时，这些绑定值只能被导入模块所读取，但在export导出模块中对这些绑定值进行修改，所修改的值也会实时地更新，相当于引用传递
