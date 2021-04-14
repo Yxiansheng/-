@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiber Test</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="../../common/react@17.0.2.development.js"></script>
+    <script src="../../common/react-dom@17.0.2.development.js"></script>
+    <script src="../../common/browser.min.js"></script>
+    <!-- <script type="text/babel">
+        const MAX_COL_COUNT = 200
+        const DELAY = 10000
+        const { useState, useEffect } = React
+
+        const Tower = () => {
+            const [cols, setCols] = useState([])
+            const [times, setTimes] = useState(new Array(200).fill(0))
+            const [direct, setDirect] = useState('left')
+            const [countdown, setCountdown] = useState(0)
+
+            const delayFun = () => {
+                let i = 1
+                while (i++ < DELAY) {
+                    setCountdown(countdown)
+                }
+            }
+
+            useEffect(() => {
+                const _timer = setInterval(() => {
+                    const newCols = cols.slice()
+                    const len = newCols.length
+                    let _direct = ''
+                    if (len > 0 && len < MAX_COL_COUNT) {
+                        _direct = direct
+                    } else {
+                        _direct = len <= 0 ? 'right' : 'left'
+                        setDirect(_direct)
+                    }
+                    if (_direct === 'right') {
+                        newCols.push(MAX_COL_COUNT - len)
+                    } else {
+                        newCols.pop()
+                    }
+                    setCols(newCols)
+                    delayFun()
+                }, 16.7)
+
+                return () => {
+                    clearInterval(_timer)
+                }
+            })
+
+            return (
+                <section>
+                    <div>
+                        {
+                            cols.map(h => (
+                                <div 
+                                    style={{
+                                        width: 1,
+                                        height: 0.5 * h,
+                                        display: 'inline-block',
+                                        background: 'red',
+                                    }}
+                                />
+                            ))
+                        }
+                    </div>
+                </section>
+            );
+        }
+
+        ReactDOM.render(
+            <Tower />,
+            document.getElementById('root')
+        );
+
+    </script> -->
+    <script type="text/babel">
+        const MAX_COL_COUNT = 2000
+        const DELAY = 10000
+        class Tower extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    times: new Array(200).fill(0),
+                    cols: [],
+                    direct: 'left',
+                    timer: null,
+                    countdown: DELAY
+                };
+            }
+
+            delayFun () {
+                let i = 1
+                while (i++ < DELAY) {
+                    this.setState({
+                        countdown: i
+                    })
+                }
+            }
+
+            init () {
+                const _timer = setInterval(() => {
+                    const cols = this.state.cols.slice()
+                    const len = cols.length
+                    let _direct = ''
+                    if (len > 0 && len < MAX_COL_COUNT) {
+                        _direct = this.state.direct
+                    } else {
+                        _direct = len <= 0 ? 'right' : 'left'
+                        this.setState({
+                            direct: _direct
+                        })
+                    }
+                    if (_direct === 'right') {
+                        cols.push(MAX_COL_COUNT - len)
+                    } else {
+                        cols.pop()
+                    }
+                    this.setState({ cols })
+                    // this.delayFun()
+                }, 10)
+                this.setState({
+                    timer: _timer
+                })
+            }
+
+            componentDidMount() {
+                this.init()
+            }
+
+            componentWillUnmount() {
+                if (this.state.timer) {
+                    clearInterval(this.state.timer);
+                }
+            }
+
+            render() {
+                return (
+                    <section>
+                        {
+                            <div>
+                                {
+                                    this.state.cols.map(h => (
+                                        <div 
+                                            style={{
+                                                width: 0.5,
+                                                height: 0.1 * h,
+                                                display: 'inline-block',
+                                                background: 'red',
+                                            }}
+                                        />
+                                    ))
+                                }
+                            </div>
+                        }
+                    </section>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Tower />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>
