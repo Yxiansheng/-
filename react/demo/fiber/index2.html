@@ -83,7 +83,7 @@
     </script> -->
     <script type="text/babel">
         const MAX_COL_COUNT = 2000
-        const DELAY = 10000
+        const DELAY = 1000000
         class Tower extends React.Component {
             constructor(props) {
                 super(props);
@@ -99,40 +99,25 @@
             delayFun () {
                 let i = 1
                 while (i++ < DELAY) {
-                    this.setState({
-                        countdown: i
-                    })
+                    // this.setState({
+                    //     countdown: i
+                    // })
                 }
             }
 
             init () {
-                const _timer = setInterval(() => {
-                    const cols = this.state.cols.slice()
+                const cols = [...this.state.cols]
+                const direct = cols.length === MAX_COL_COUNT ? 'left' : 'right' 
+                for (let i = 0; i < MAX_COL_COUNT; i++) {
                     const len = cols.length
-                    let _direct = ''
-                    if (len > 0 && len < MAX_COL_COUNT) {
-                        _direct = this.state.direct
-                    } else {
-                        _direct = len <= 0 ? 'right' : 'left'
-                        this.setState({
-                            direct: _direct
-                        })
-                    }
-                    if (_direct === 'right') {
+                    if (direct === 'right') {
                         cols.push(MAX_COL_COUNT - len)
                     } else {
                         cols.pop()
                     }
                     this.setState({ cols })
-                    // this.delayFun()
-                }, 10)
-                this.setState({
-                    timer: _timer
-                })
-            }
-
-            componentDidMount() {
-                this.init()
+                    this.delayFun()
+                }
             }
 
             componentWillUnmount() {
@@ -145,21 +130,22 @@
                 return (
                     <section>
                         {
-                            <div>
-                                {
-                                    this.state.cols.map(h => (
-                                        <div 
-                                            style={{
-                                                width: 0.5,
-                                                height: 0.1 * h,
-                                                display: 'inline-block',
-                                                background: 'red',
-                                            }}
-                                        />
-                                    ))
-                                }
-                            </div>
+                            this.state.cols.map((h, index) => (
+                                <div 
+                                    key={index}
+                                    style={{
+                                        width: 0.5,
+                                        height: 0.1 * h,
+                                        display: 'inline-block',
+                                        background: 'red',
+                                    }}
+                                />
+                            ))
                         }
+                        <br />
+                        <button
+                            onClick={() => this.init()}
+                        >跑</button>
                     </section>
                 );
             }
