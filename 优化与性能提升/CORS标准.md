@@ -18,13 +18,13 @@ CORS(Cross-Origin Resource Sharing)：跨域资源共享标准是一种 W3C 标�
 
 - 请求流程
 
-![CORS 简单请求流程](../文档使用图片/CORS简单请求流程.jpg)
+![CORS 简单请求流程](../images/CORS简单请求流程.jpg)
 
 ## 非简单请求
 
 - 满足条件：不满足简单请求条件的即为非简单请求
 - 请求流程  
-  ![CORS 简单请求流程](../文档使用图片/CORS非简单请求流程.jpg)
+  ![CORS 简单请求流程](../images/CORS非简单请求流程.jpg)
 
 ## 携带 cookie
 

@@ -6,7 +6,7 @@ TCP（Transmission Control Protocol）：传输控制协议是一种面向连接
 
 ## TCP 报文
 
-![TCP报文](../文档使用图片/TCP协议报文.png)
+![TCP报文](../images/TCP协议报文.png)
 
 - SYN(Synchronize Sequence Numbers): 同步序列号标志位，当其为 1 时即说明该报文为建立连接报文，ACK 标志位为 0 为客户端发送给服务端的建立连接请求报文、而 ACK 为 1 则为建立连接响应报文
 - ACK(Acknowledge): 确认序号标志，为 1 时表示确认号有效，为 0 表示报文中不含确认信息，忽略确认号字段
