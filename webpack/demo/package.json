@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev-filename-hash": "webpack --config=filename-hash/webpack.config.js",
+    "dev-loader-and-plugin": "webpack --config=loader-and-plugin/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,6 +17,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.4",
     "html-webpack-plugin": "^5.3.1",
+    "loader-utils": "^2.0.0",
     "mini-css-extract-plugin": "^1.6.0",
     "style-loader": "^2.0.0",
     "webpack-cli": "^4.7.0"
