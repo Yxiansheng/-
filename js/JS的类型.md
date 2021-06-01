@@ -57,9 +57,80 @@ JavaScript 的字符串类型用于表示文本数据，在 JavaScript 中字符
 
 ### 7. Symbols(ES6)
 
+#### 简述
+
 symbol 是一种基本数据类型 （primitive data type）。Symbol()函数会返回 symbol 类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的 symbol 注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法："new Symbol()"。
 
-每个从 Symbol()返回的 symbol 值都是唯一的。一个 symbol 值能作为对象属性的标识符；这是该数据类型仅有的目的。
+#### 特性：
+
+1. 每个从 Symbol()返回的 symbol 值都是唯一的。
+```Symbol() === Symbol() // false```
+2. 一个 symbol 值能作为对象属性的标识符；
+
+```[js]
+const sym = Symbol('This is a object attr')
+const a = {
+    [sym]: 1
+}
+console.log(a); // { [Symbol(This is a object attr)]: 1 }
+```
+
+3. symbol 值不会被隐式转换，这意味着当我们在一些会自动隐式转换的场景使用 symbol 时会报错，而在这种场景下，我们需要主动调用 symbol 的 toString 方法。
+
+```[js]
+const sym = Symbol('b')
+console.log('a-' + sym.toString()) // a-Symbol(b)
+console.log('a-' + sym) // TypeError: Cannot convert a Symbol value to a string
+```
+
+#### 常用场景
+
+1. 用于 Symbol 值是唯一且可以作为对象属性的特点，Symbol 也暴露了部分属性及方法供我们对对象或构造函数进行操作，常用的有以下几个。  
+    1. Symbol.iterator 可以为一个对象自定义创建一个迭代器。
+  
+        ```[js]
+        var obj = {}
+        obj[Symbol.iterator] = function* () {
+            yield 1;
+            yield 2;
+            yield 3;
+        };
+        console.log([...obj]); // [ 1, 2, 3 ]
+        console.log(new Set(obj)) // Set { 1, 2, 3 }
+        ```
+
+    2. Symbol.asyncIterator 符号指定了一个对象的默认异步迭代器。如果一个对象设置了这个属性，它就是异步可迭代对象，可用于for await...of循环。
+    3. Symbol.hasInstance 用于判断某对象是否为某构造器的实例。因此你可以用它自定义 instanceof 操作符在某个类上的行为。注意，该属性只有在 class 形式的构造函数上才有效 0.0。
+
+        ```[js]
+        class MyArray {
+            constructor(n) {
+                return new Array(n)
+            }
+            static [Symbol.hasInstance] (instance) {
+                return Array.isArray(instance)
+            }
+        }
+
+        const a = new MyArray(1)
+        const b = {}
+
+        console.log(a instanceof MyArray);
+        console.log(b instanceof MyArray);
+        ```
+
+    4. Symbol.isConcatSpreadable符号用于配置某对象作为Array.prototype.concat()方法的参数时是否展开其数组元素。
+    5. Symbol.for(key) 方法会根据给定的键 key，来从运行时的 symbol 注册表中找到对应的 symbol，如果找到了，则返回它，否则，新建一个与该键关联的 symbol，并放入全局 symbol 注册表中。
+    6. Symbol.keyFor(sym) 方法用来获取全局symbol 注册表中与某个 symbol 关联的键。
+2. 消除魔法值
+3. 模拟类的私有方法，ES6 中的类是没有 private 关键字来声明类的私有方法和私有变量的，但是我们可以利用 Symbol 的唯一性来模拟。
+
+    ```[js]
+    const eat = Symbol('eat)
+    class Dog {
+      [eat]: () => {}
+    }
+    ```
 
 ## 引用类型
 

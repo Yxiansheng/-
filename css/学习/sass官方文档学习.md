@@ -2,6 +2,19 @@
 
 Sass 是一款强化 CSS 的辅助工具，它在 CSS 语法的基础上增加了变量 (variables)、嵌套 (nested rules)、混合 (mixins)、导入 (inline imports) 等高级功能，这些拓展令 CSS 更加强大与优雅。使用 Sass 以及 Sass 的样式库（如 Compass）有助于更好地组织管理样式文件，以及更高效地开发项目。
 
+## sass 与 less 的区别
+
+1. sass 是基于 dart-sass 或 node-sass 等库在服务端进行编译的，而 less 是基于 js 进行编辑的，它可通过直接引入 less.js 来转化sass/scss 代码，也可通过 less-loader 在打包时进行编译。
+2. 变量符不一样，less 为 @ , 而 sass 为 $
+3. 编译输出选项，less 没有输出选项，而 sass 有以下四种输出选项：  
+    - nested：嵌套缩进的css代码
+    - expanded：展开的多行css代码
+    - compact：简洁格式的css代码
+    - compressed：压缩后的css代码
+
+4. sass 的功能更加强大，它支持条件和循环语句，如 @if {} @else {}; @for {}  
+5. sass @import 引用的外部文件如果不想编译时多生成同名的.css文件，命名必须以_开头,
+
 ## CSS 语法扩展
 
 ### 嵌套规则
