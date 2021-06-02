@@ -1,14 +1,10 @@
-class MyArray {
-    constructor(n) {
-        return new Array(n)
-    }
-    static [Symbol.hasInstance] (instance) {
-        return Array.isArray(instance)
-    }
-}
+const o = {}
+Object.defineProperty(o, 'a', {
+    configurable: false,
+    value: 1,
+    writable: false
+})
 
-const a = new MyArray(1)
-const b = {}
-
-console.log(a instanceof MyArray);
-console.log(b instanceof MyArray);
+console.log(Reflect.defineProperty(o, 'a', {
+    writable: true
+})); // false
