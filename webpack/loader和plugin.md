@@ -8,6 +8,7 @@ loader用于对某模块的源代码进行转化，它可以帮助我们在加�
   
   loader有两种使用方式：
     1. 配置方式：在webpack.config.js中进行配置
+
     ```
     module: {
         rules: [
