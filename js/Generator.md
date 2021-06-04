@@ -89,30 +89,30 @@
 
 2. 解决异步任务回调地狱问题
 
-```[js]
-const run = (fn) => {
-    const gen = fn()
-    const next = (data) => {
-        const result = gen.next(data)
-        if (result.done) return
-        result.value(next)
+    ```[js]
+    const run = (fn) => {
+        const gen = fn()
+        const next = (data) => {
+            const result = gen.next(data)
+            if (result.done) return
+            result.value(next)
+        }
+        next()
     }
-    next()
-}
 
-run(function* () {
-    const a = yield (success) => {
-        const timer = setTimeout(() => {
-            clearTimeout(timer)
-            success(1)
-        }, 300)
-    }
-    const b = yield (success) => {
-        const timer = setTimeout(() => {
-            clearTimeout(timer)
-            success(2)
-        }, 500)
-    }
-    console.log(a + b) // 3
-})
-```
+    run(function* () {
+        const a = yield (success) => {
+            const timer = setTimeout(() => {
+                clearTimeout(timer)
+                success(1)
+            }, 300)
+        }
+        const b = yield (success) => {
+            const timer = setTimeout(() => {
+                clearTimeout(timer)
+                success(2)
+            }, 500)
+        }
+        console.log(a + b) // 3
+    })
+    ```
