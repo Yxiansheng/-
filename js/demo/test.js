@@ -1,14 +1,23 @@
-const func = function (...args) {
-  console.log(this.desc);
-  console.log('args', args)
+/**
+ * @desc 柯里化函数
+ * @param {*} func 
+ * @returns 
+ */
+const currying = (func) => {
+  const args = []
+  const newFunc = function () {
+    if (arguments.length === 0) {
+      return func.apply(this, args)
+    } else {
+      args.push(arguments[0])
+      return newFunc
+    }
+  }
+  return newFunc
 }
 
-const a = {
-  desc: 'This is a!'
-}
-const b = {
-  desc: 'This is b!'
-}
+const add = currying((a, b, c) => {
+  return a + b + c
+})
 
-func.call(a, 1, 2, 3)
-func.apply(a, [1, 2, 3])
+console.log(add(1)(2)(3)());
