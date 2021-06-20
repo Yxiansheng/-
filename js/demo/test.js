@@ -1,23 +1,17 @@
-/**
- * @desc 柯里化函数
- * @param {*} func 
- * @returns 
- */
-const currying = (func) => {
-  const args = []
-  const newFunc = function () {
-    if (arguments.length === 0) {
-      return func.apply(this, args)
-    } else {
-      args.push(arguments[0])
-      return newFunc
-    }
-  }
-  return newFunc
+const new2 = (func, ...params) => {
+  const o = Object.create(func.prototype)
+  const ret = func.apply(o, params)
+  return ret instanceof Object ? ret : o
 }
 
-const add = currying((a, b, c) => {
-  return a + b + c
-})
+const Animal = function (name) {
+  this.name = name
+}
 
-console.log(add(1)(2)(3)());
+const dog = new Animal('dog')
+console.log(dog.constructor);
+console.log(dog.constructor.prototype);
+
+const cat = new2(Animal, 'cat')
+console.log(cat.constructor);
+console.log(cat.constructor.prototype);

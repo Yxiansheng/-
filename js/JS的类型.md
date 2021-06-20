@@ -166,3 +166,21 @@ Boolean | 布尔值 | "true"/"false" |
 Array | 数组本身 | 将 Array 的每个元素转换为字符串，并将它们依次连接起来，两个元素之间用英文逗号作为分隔符进行拼接
 Date | 存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC | 返回日期的文本表示("Wed Oct 09 2019 08:00:00 GMT+0800 (中国标准时间)")。
 Function | 函数本身 | 返回如下格式的字符串，其中 functionname 是一个函数的名称，此函数的 toString 方法被调用： "function functionname() { [native code] }"
+
+## typeof 与 instanceof
+
+typeof 返回一个字符串，表示未经计算的操作数的类型。常见如下
+
+数据 | typeof |  
+-|-|
+1 | number |
+'' | string |
+true/false | boolean |
+undefined | 'undefined' |
+null | object |
+symbol | symbol |
+BigInt(1) | bigint |
+| function | function |
+| 其他任何类型对象 | object |
+
+instanceof 用于判断是用来判断 A 是否为 B 的实例，可以等价于```A.__proto__ === B.prototype```

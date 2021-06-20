@@ -34,7 +34,7 @@ Function.prototype.apply = function (context, arr) {
     if (!arr) {
         result = context.fn();
     } else {
-        result = context.fn(...arr);
+        result = context.fn(...arr); // eval()
     }
       
     delete context.fn
