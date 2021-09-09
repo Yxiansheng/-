@@ -64,7 +64,7 @@ symbol 是一种基本数据类型 （primitive data type）。Symbol()函数会
 #### 特性：
 
 1. 每个从 Symbol()返回的 symbol 值都是唯一的。
-```Symbol() === Symbol() // false```
+   `Symbol() === Symbol() // false`
 2. 一个 symbol 值能作为对象属性的标识符；
 
 ```[js]
@@ -85,52 +85,65 @@ console.log('a-' + sym) // TypeError: Cannot convert a Symbol value to a string
 
 #### 常用场景
 
-1. 用于 Symbol 值是唯一且可以作为对象属性的特点，Symbol 也暴露了部分属性及方法供我们对对象或构造函数进行操作，常用的有以下几个。  
-    1. Symbol.iterator 可以为一个对象自定义创建一个迭代器。
-  
-        ```[js]
-        var obj = {}
-        obj[Symbol.iterator] = function* () {
-            yield 1;
-            yield 2;
-            yield 3;
-        };
-        console.log([...obj]); // [ 1, 2, 3 ]
-        console.log(new Set(obj)) // Set { 1, 2, 3 }
-        ```
+1. 用于 Symbol 值是唯一且可以作为对象属性的特点，Symbol 也暴露了部分属性及方法供我们对对象或构造函数进行操作，常用的有以下几个。
 
-    2. Symbol.asyncIterator 符号指定了一个对象的默认异步迭代器。如果一个对象设置了这个属性，它就是异步可迭代对象，可用于for await...of循环。
-    3. Symbol.hasInstance 用于判断某对象是否为某构造器的实例。因此你可以用它自定义 instanceof 操作符在某个类上的行为。注意，该属性只有在 class 形式的构造函数上才有效 0.0。
+   1. Symbol.iterator 可以为一个对象自定义创建一个迭代器。
 
-        ```[js]
-        class MyArray {
-            constructor(n) {
-                return new Array(n)
-            }
-            static [Symbol.hasInstance] (instance) {
-                return Array.isArray(instance)
-            }
-        }
+      ```[js]
+      var obj = {}
+      obj[Symbol.iterator] = function* () {
+          yield 1;
+          yield 2;
+          yield 3;
+      };
+      console.log([...obj]); // [ 1, 2, 3 ]
+      console.log(new Set(obj)) // Set { 1, 2, 3 }
+      ```
 
-        const a = new MyArray(1)
-        const b = {}
+   2. Symbol.asyncIterator 符号指定了一个对象的默认异步迭代器。如果一个对象设置了这个属性，它就是异步可迭代对象，可用于 for await...of 循环。
+   3. Symbol.hasInstance 用于判断某对象是否为某构造器的实例。因此你可以用它自定义 instanceof 操作符在某个类上的行为。注意，该属性只有在 class 形式的构造函数上才有效 0.0。
 
-        console.log(a instanceof MyArray);
-        console.log(b instanceof MyArray);
-        ```
+      ```[js]
+      class MyArray {
+          constructor(n) {
+              return new Array(n)
+          }
+          static [Symbol.hasInstance] (instance) {
+              return Array.isArray(instance)
+          }
+      }
 
-    4. Symbol.isConcatSpreadable符号用于配置某对象作为Array.prototype.concat()方法的参数时是否展开其数组元素。
-    5. Symbol.for(key) 方法会根据给定的键 key，来从运行时的 symbol 注册表中找到对应的 symbol，如果找到了，则返回它，否则，新建一个与该键关联的 symbol，并放入全局 symbol 注册表中。
-    6. Symbol.keyFor(sym) 方法用来获取全局symbol 注册表中与某个 symbol 关联的键。
+      const a = new MyArray(1)
+      const b = {}
+
+      console.log(a instanceof MyArray);
+      console.log(b instanceof MyArray);
+      ```
+
+   4. Symbol.isConcatSpreadable 符号用于配置某对象作为 Array.prototype.concat()方法的参数时是否展开其数组元素。
+   5. Symbol.for(key) 方法会根据给定的键 key，来从运行时的 symbol 注册表中找到对应的 symbol，如果找到了，则返回它，否则，新建一个与该键关联的 symbol，并放入全局 symbol 注册表中。
+   6. Symbol.keyFor(sym) 方法用来获取全局 symbol 注册表中与某个 symbol 关联的键。
+
 2. 消除魔法值
 3. 模拟类的私有方法，ES6 中的类是没有 private 关键字来声明类的私有方法和私有变量的，但是我们可以利用 Symbol 的唯一性来模拟。
 
-    ```[js]
-    const eat = Symbol('eat)
-    class Dog {
-      [eat]: () => {}
-    }
-    ```
+   ```[js]
+   const eat = Symbol('eat)
+   class Dog {
+     [eat]: () => {}
+   }
+   ```
+
+## 原始类型的特点：
+
+1. 原始类型的隐式拆装箱。 当属性访问符(`.` 或`[]`)作用于原始类型，会隐式地创建 String，Number 等包装类型，用完即丢。所以修改 valueOf，只影响到那个临时的包装类型。
+   ```[js]
+   const a = 1
+   a.valueOf = () => 2 // 创建了临时的包装对象：Number(a)
+   console.log(a) // 1，还是调用 a 的本身的 valueOf() 返回1
+   ```
+
+---
 
 ## 引用类型
 
@@ -171,16 +184,21 @@ Function | 函数本身 | 返回如下格式的字符串，其中 functionname �
 
 typeof 返回一个字符串，表示未经计算的操作数的类型。常见如下
 
-数据 | typeof |  
--|-|
-1 | number |
-'' | string |
-true/false | boolean |
-undefined | 'undefined' |
-null | object |
-symbol | symbol |
-BigInt(1) | bigint |
-| function | function |
-| 其他任何类型对象 | object |
+| 数据             | typeof      |
+| ---------------- | ----------- |
+| 1                | number      |
+| ''               | string      |
+| true/false       | boolean     |
+| undefined        | 'undefined' |
+| null             | object      |
+| symbol           | symbol      |
+| BigInt(1)        | bigint      |
+| function         | function    |
+| 其他任何类型对象 | object      |
 
-instanceof 用于判断是用来判断 A 是否为 B 的实例，可以等价于```A.__proto__ === B.prototype```
+instanceof 用于判断是用来判断 A 是否为 B 的实例，可以等价于`A.__proto__ === B.prototype`
+
+## 加法操作符的类型转换。
+
+a+b 的 a 或 b 如果是非原始类型，会自动尝试转换成原始类型，利用 valueOf 优先转为原始数据类型（），若不成功，再 d 调用 toString 。`+`两边若有一个字符串则执行字符串拼接操作。
+补充：Date 比较特殊，会先调用 toString 方法，再调用 valueOf 方法
